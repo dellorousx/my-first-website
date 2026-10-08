@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ganen — Senior Product Designer</title>
+<meta name="description" content="Ganen — Senior Product Designer portfolio and selected case studies.">
+<style>
+:root{
+ --bg:#f7f7f5;--surface:#fff;--ink:#151515;--muted:#737373;--line:#deded9;
+ --accent:#2457ff;--accent2:#e9eeff;--max:1180px;--radius:24px;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+a{color:inherit;text-decoration:none}.wrap{max-width:var(--max);margin:auto;padding:0 28px}
+nav{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(247,247,245,.88);backdrop-filter:blur(16px);z-index:20}
+.logo{font-weight:800;letter-spacing:-.04em}.navlinks{display:flex;gap:26px;font-size:14px;color:#555}.navlinks a:hover{color:#000}
+.hero{padding:110px 0 90px;display:grid;grid-template-columns:1.4fr .6fr;gap:70px;align-items:end}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:700}
+h1{font-size:clamp(54px,8vw,100px);line-height:.94;letter-spacing:-.075em;margin:18px 0 28px;max-width:850px}
+.hero p{font-size:21px;line-height:1.45;max-width:700px;color:#4f4f4f;margin:0}
+.hero-side{border-left:1px solid var(--line);padding-left:28px;color:#666;font-size:14px}
+.hero-side strong{display:block;color:#111;font-size:15px;margin-bottom:7px}.hero-side div+div{margin-top:24px}
+.section{padding:80px 0;border-top:1px solid var(--line)}
+.section-head{display:flex;justify-content:space-between;gap:40px;margin-bottom:42px}.section-head h2{font-size:42px;letter-spacing:-.055em;margin:0}.section-head p{max-width:480px;color:var(--muted);margin:8px 0 0}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.25s transform,.25s box-shadow}
+.card:hover{transform:translateY(-5px);box-shadow:0 18px 45px rgba(0,0,0,.08)}
+.visual{height:330px;padding:26px;display:flex;align-items:center;justify-content:center;background:#ecece8;position:relative;overflow:hidden}
+.visual.blue{background:linear-gradient(135deg,#dce9ff,#f8fbff)}.visual.dark{background:#171717}
+.mock{width:190px;height:285px;background:#fff;border-radius:22px;box-shadow:0 22px 50px rgba(0,0,0,.18);padding:16px;position:relative}
+.mock:before{content:"";display:block;width:45px;height:5px;border-radius:10px;background:#ddd;margin:0 auto 18px}
+.ui-title{height:14px;width:90px;background:#111;border-radius:5px;margin:12px 0}.ui-line{height:8px;background:#e6e6e6;border-radius:4px;margin:8px 0}.ui-box{height:68px;background:#eef2ff;border-radius:13px;margin:16px 0}
+.float{position:absolute;background:#fff;padding:13px 16px;border-radius:14px;box-shadow:0 15px 35px rgba(0,0,0,.12);font-size:12px;font-weight:700}
+.f1{right:12%;top:18%}.f2{left:12%;bottom:20%}
+.card-body{padding:26px}.tag{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:700}.card h3{font-size:27px;letter-spacing:-.04em;margin:9px 0}.card p{color:var(--muted);margin:0 0 20px}.arrow{font-weight:800}
+.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px}.about h2{font-size:52px;line-height:1;letter-spacing:-.06em;margin:0}.about-copy{font-size:20px;color:#4e4e4e}.about-copy p{margin-top:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:36px}.stat{background:var(--bg);padding:25px}.stat b{font-size:35px;letter-spacing:-.05em;display:block}.stat span{font-size:13px;color:var(--muted)}
+.case{padding:90px 0;border-top:1px solid var(--line)}.case-top{display:grid;grid-template-columns:1fr .75fr;gap:70px;margin-bottom:50px}.case h2{font-size:clamp(45px,6vw,74px);line-height:.98;letter-spacing:-.065em;margin:14px 0 22px}.case-intro{font-size:19px;color:#555;max-width:670px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-content:start}.meta div{border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--muted)}.meta strong{display:block;color:#111;font-size:14px;margin-bottom:3px}
+.case-hero{height:520px;border-radius:28px;background:linear-gradient(135deg,#dbe8ff,#f7faff);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.phone-row{display:flex;gap:18px;transform:rotate(-5deg) translateY(20px)}.phone{width:220px;height:410px;background:#fff;border-radius:29px;box-shadow:0 28px 70px rgba(27,58,120,.22);padding:20px}.phone:nth-child(2){transform:translateY(-35px)}.phone:nth-child(3){transform:translateY(30px)}.screen-head{height:22px;width:100px;background:#111;border-radius:7px;margin:22px 0}.screen-card{height:105px;border-radius:17px;background:#eef3ff;margin:16px 0}.screen-button{height:43px;border-radius:12px;background:#2457ff;margin-top:20px}.screen-line{height:9px;background:#e9e9e9;border-radius:4px;margin:11px 0}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:70px}.case-grid h3{font-size:28px;letter-spacing:-.04em;margin:0 0 15px}.case-grid p{color:#5e5e5e}.bullet{display:flex;gap:14px;margin:16px 0;color:#4d4d4d}.bullet i{width:24px;height:24px;border-radius:50%;background:var(--accent2);color:var(--accent);font-style:normal;text-align:center;font-weight:800;flex:none}
+.insight{background:#151515;color:#fff;border-radius:24px;padding:38px;margin-top:70px}.insight small{color:#aaa;text-transform:uppercase;letter-spacing:.12em}.insight h3{font-size:38px;letter-spacing:-.05em;max-width:780px;margin:12px 0 0}
+.cta{padding:110px 0;text-align:center}.cta h2{font-size:clamp(48px,7vw,82px);letter-spacing:-.07em;line-height:.95;margin:0 auto 25px;max-width:850px}.cta p{color:var(--muted);font-size:18px}.button{display:inline-flex;margin-top:15px;padding:14px 22px;background:#111;color:#fff;border-radius:999px;font-weight:700;font-size:14px}
+footer{border-top:1px solid var(--line);padding:25px 0;color:#777;font-size:12px;display:flex;justify-content:space-between}
+@media(max-width:800px){.hero,.case-top,.about{grid-template-columns:1fr}.hero{padding-top:70px}.hero-side{border-left:0;border-top:1px solid var(--line);padding:22px 0 0}.grid,.case-grid{grid-template-columns:1fr}.section{padding:60px 0}.visual{height:270px}.case-hero{height:390px}.phone{width:150px;height:300px;padding:14px;border-radius:22px}.phone-row{gap:8px}.navlinks{display:none}.stats{grid-template-columns:1fr}.stats .stat{padding:18px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap" style="width:100%;display:flex;justify-content:space-between;align-items:center"><a class="logo" href="#">GANEN.</a><div class="navlinks"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></div></div></nav>
+
+<main>
+<section class="hero wrap">
+<div><div class="eyebrow">Senior Product Designer · Banking & Fintech</div>
+<h1>Designing products people can trust.</h1>
+<p>I’m Ganen, a Product Designer with 7+ years of experience turning complex financial products into clear, useful and business-minded digital experiences.</p></div>
+<div class="hero-side"><div><strong>Based in</strong>Jakarta, Indonesia</div><div><strong>Focus</strong>Product strategy · UX · UI · Design systems</div><div><strong>Currently</strong>MotionBank · MNC Bank</div></div>
+</section>
+
+<section id="work" class="section wrap">
+<div class="section-head"><h2>Selected work</h2><p>A selection of product design work focused on reducing friction, improving usability and supporting measurable business outcomes.</p></div>
+<div class="grid">
+<a class="card" href="#case-onboarding"><div class="visual blue"><div class="mock"><div class="ui-title"></div><div class="ui-line"></div><div class="ui-line"></div><div class="ui-box"></div><div class="ui-line"></div><div class="ui-line"></div></div><div class="float f1">↑ Activation</div><div class="float f2">Simplified flow</div></div><div class="card-body"><span class="tag">01 · Banking</span><h3>Digital Onboarding</h3><p>Reframing account opening around clarity, confidence and first-time completion.</p><span class="arrow">View case study →</span></div></a>
+<a class="card" href="#case-paylater"><div class="visual dark"><div class="mock"><div class="ui-title"></div><div class="ui-box"></div><div class="ui-line"></div><div class="ui-line"></div><div class="ui-box"></div></div><div class="float f1">Pay later</div><div class="float f2">Clear repayment</div></div><div class="card-body"><span class="tag">02 · Fintech</span><h3>MotionPaylater</h3><p>Making a credit product easier to understand, apply for and use responsibly.</p><span class="arrow">View case study →</span></div></a>
+<a class="card" href="#case-split"><div class="visual"><div class="mock"><div class="ui-title"></div><div class="ui-box"></div><div class="ui-line"></div><div class="ui-line"></div><div class="ui-box"></div></div><div class="float f1">Split bill</div></div><div class="card-body"><span class="tag">03 · Payments</span><h3>LinkAja Split Bill</h3><p>A UX study exploring a simpler way to split shared expenses with friends.</p><span class="arrow">View case study →</span></div></a>
+</div>
+</section>
+
+<section id="about" class="section wrap">
+<div class="about"><div><div class="eyebrow">About</div><h2>Strategy to screen.</h2></div><div class="about-copy"><p>I work across the product lifecycle—from understanding the problem and shaping the experience to defining interaction patterns and shipping polished interfaces.</p><p>My strongest domain is financial products, where good design needs to balance user confidence, business goals, regulatory constraints and technical reality.</p><div class="stats"><div class="stat"><b>7+</b><span>Years in digital product design</span></div><div class="stat"><b>Fintech</b><span>Banking & financial products</span></div><div class="stat"><b>End-to-end</b><span>Research → ship → iterate</span></div></div></div></div>
+</section>
+
+<section id="case-onboarding" class="case"><div class="wrap">
+<div class="case-top"><div><span class="tag">Case study · 01</span><h2>Making digital onboarding easier to complete.</h2><p class="case-intro">A redesign of the account-opening journey to reduce uncertainty, improve guidance and help more customers complete their first banking experience successfully.</p></div><div class="meta"><div><strong>Role</strong>Product Designer</div><div><strong>Team</strong>PO · PM · Engineers · Compliance</div><div><strong>Scope</strong>UX strategy · Flow · UI · Prototype</div><div><strong>Platform</strong>Mobile banking</div></div></div>
+<div class="case-hero"><div class="phone-row"><div class="phone"><div class="screen-head"></div><div class="screen-line"></div><div class="screen-line"></div><div class="screen-card"></div><div class="screen-button"></div></div><div class="phone"><div class="screen-head"></div><div class="screen-card"></div><div class="screen-line"></div><div class="screen-line"></div><div class="screen-button"></div></div><div class="phone"><div class="screen-head"></div><div class="screen-line"></div><div class="screen-card"></div><div class="screen-line"></div><div class="screen-button"></div></div></div></div>
+<div class="case-grid"><div><h3>The challenge</h3><p>New customers had to move through multiple steps before becoming active users. The experience needed to communicate requirements earlier and make progress feel more predictable.</p><div class="bullet"><i>1</i><span>Too much information was presented at once.</span></div><div class="bullet"><i>2</i><span>Users had limited visibility into what was required next.</span></div><div class="bullet"><i>3</i><span>Validation and error states created avoidable friction.</span></div></div><div><h3>The approach</h3><p>I mapped the end-to-end journey, identified high-friction moments and worked with product and engineering to simplify the information architecture before moving into detailed UI.</p><div class="bullet"><i>→</i><span>Clarified requirements before users entered each step.</span></div><div class="bullet"><i>→</i><span>Reduced cognitive load through progressive disclosure.</span></div><div class="bullet"><i>→</i><span>Designed clearer feedback for validation and recovery.</span></div></div></div>
+<div class="insight"><small>Outcome</small><h3>Improved the account activation flow, contributing to higher first-time completion and a clearer path from sign-up to active banking.</h3></div>
+</div></section>
+
+<section id="case-paylater" class="case"><div class="wrap">
+<div class="case-top"><div><span class="tag">Case study · 02</span><h2>Making PayLater feel simple, not complicated.</h2><p class="case-intro">Designing a clearer borrowing experience across discovery, application and repayment—while keeping important financial information visible.</p></div><div class="meta"><div><strong>Role</strong>Product Designer</div><div><strong>Scope</strong>UX · UI · Design system</div><div><strong>Focus</strong>Clarity · Trust · Conversion</div><div><strong>Platform</strong>Digital banking</div></div></div>
+<div class="case-grid"><div><h3>Design principles</h3><p>For a credit product, “easy to use” should not mean hiding important information. The interface makes cost, installment and repayment information understandable before commitment.</p></div><div><h3>Key decisions</h3><div class="bullet"><i>01</i><span>Expose the important numbers at the moment they matter.</span></div><div class="bullet"><i>02</i><span>Use consistent components to make the flow feel familiar.</span></div><div class="bullet"><i>03</i><span>Separate promotional messaging from financial disclosures.</span></div></div></div>
+<div class="insight"><small>Design outcome</small><h3>A more transparent PayLater journey that balances commercial messaging with customer confidence.</h3></div>
+</div></section>
+
+<section id="case-split" class="case"><div class="wrap">
+<div class="case-top"><div><span class="tag">Case study · 03</span><h2>Turning “who owes what?” into a simple flow.</h2><p class="case-intro">A UX study for splitting shared payments, designed around the social context behind the transaction—not just the transaction itself.</p></div><div class="meta"><div><strong>Role</strong>UX / Product Designer</div><div><strong>Type</strong>Independent UX study</div><div><strong>Focus</strong>Research · Journey · Prototype</div><div><strong>Output</strong>Medium case study</div></div></div>
+<div class="case-grid"><div><h3>Problem framing</h3><p>Splitting a bill is technically a payment task, but emotionally it is a coordination task. The experience needs to make amounts and responsibilities obvious without creating awkwardness between friends.</p></div><div><h3>Solution direction</h3><p>Introduce the shared expense first, make each participant’s amount explicit, then provide a lightweight request-and-confirmation loop.</p></div></div>
+<div class="insight"><small>Core insight</small><h3>The best payment UX can disappear into the social moment it enables.</h3></div>
+</div></section>
+
+<section id="contact" class="cta wrap"><div class="eyebrow">Let’s work together</div><h2>Have a product problem worth solving?</h2><p>Available for Senior Product Designer opportunities and selected freelance / consulting work.</p><a class="button" href="mailto:hello@example.com">Get in touch ↗</a></section>
+</main>
+<footer class="wrap"><span>© 2026 Ganen</span><span>Senior Product Designer · Jakarta</span></footer>
+</body>
+</html>
