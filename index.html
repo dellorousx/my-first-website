@@ -40,7 +40,8 @@ h1{font-size:clamp(54px,8vw,100px);line-height:.94;letter-spacing:-.075em;margin
 .case-hero{height:520px;border-radius:28px;background:linear-gradient(135deg,#dbe8ff,#f7faff);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.phone-row{display:flex;gap:18px;transform:rotate(-5deg) translateY(20px)}.phone{width:220px;height:410px;background:#fff;border-radius:29px;box-shadow:0 28px 70px rgba(27,58,120,.22);padding:20px}.phone:nth-child(2){transform:translateY(-35px)}.phone:nth-child(3){transform:translateY(30px)}.screen-head{height:22px;width:100px;background:#111;border-radius:7px;margin:22px 0}.screen-card{height:105px;border-radius:17px;background:#eef3ff;margin:16px 0}.screen-button{height:43px;border-radius:12px;background:#2457ff;margin-top:20px}.screen-line{height:9px;background:#e9e9e9;border-radius:4px;margin:11px 0}
 .case-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:70px}.case-grid h3{font-size:28px;letter-spacing:-.04em;margin:0 0 15px}.case-grid p{color:#5e5e5e}.bullet{display:flex;gap:14px;margin:16px 0;color:#4d4d4d}.bullet i{width:24px;height:24px;border-radius:50%;background:var(--accent2);color:var(--accent);font-style:normal;text-align:center;font-weight:800;flex:none}
 .insight{background:#151515;color:#fff;border-radius:24px;padding:38px;margin-top:70px}.insight small{color:#aaa;text-transform:uppercase;letter-spacing:.12em}.insight h3{font-size:38px;letter-spacing:-.05em;max-width:780px;margin:12px 0 0}
-.cta{padding:110px 0;text-align:center}.cta h2{font-size:clamp(48px,7vw,82px);letter-spacing:-.07em;line-height:.95;margin:0 auto 25px;max-width:850px}.cta p{color:var(--muted);font-size:18px}.button{display:inline-flex;margin-top:15px;padding:14px 22px;background:#111;color:#fff;border-radius:999px;font-weight:700;font-size:14px}
+.cta{padding:110px 0;text-align:center}.cta h2{font-size:clamp(48px,7vw,82px);letter-spacing:-.07em;line-height:.95;margin:0 auto 25px;max-width:850px}.cta p{color:var(--muted);font-size:18px}.contact-links{max-width:720px;margin:38px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:left}.contact-link{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:18px;transition:.2s transform,.2s box-shadow}.contact-link:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.07)}.contact-link small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:5px}.contact-link strong{font-size:14px}.contact-link b{font-size:18px}@media(max-width:800px){.contact-links{grid-template-columns:1fr}}
+.button{display:inline-flex;margin-top:15px;padding:14px 22px;background:#111;color:#fff;border-radius:999px;font-weight:700;font-size:14px}
 footer{border-top:1px solid var(--line);padding:25px 0;color:#777;font-size:12px;display:flex;justify-content:space-between}
 @media(max-width:800px){.hero,.case-top,.about{grid-template-columns:1fr}.hero{padding-top:70px}.hero-side{border-left:0;border-top:1px solid var(--line);padding:22px 0 0}.grid,.case-grid{grid-template-columns:1fr}.section{padding:60px 0}.visual{height:270px}.case-hero{height:390px}.phone{width:150px;height:300px;padding:14px;border-radius:22px}.phone-row{gap:8px}.navlinks{display:none}.stats{grid-template-columns:1fr}.stats .stat{padding:18px}}
 </style>
@@ -88,7 +89,13 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:#777;font-size:12px
 <div class="insight"><small>Core insight</small><h3>The best payment UX can disappear into the social moment it enables.</h3></div>
 </div></section>
 
-<section id="contact" class="cta wrap"><div class="eyebrow">Let’s work together</div><h2>Have a product problem worth solving?</h2><p>Available for Senior Product Designer opportunities and selected freelance / consulting work.</p><a class="button" href="mailto:hello@example.com">Get in touch ↗</a></section>
+<section id="contact" class="cta wrap">
+<div class="eyebrow">Let’s work together</div><h2>Have a product problem worth solving?</h2><p>Available for Senior Product Designer opportunities and selected freelance / consulting work.</p>
+<div class="contact-links">
+<a class="contact-link" href="https://www.linkedin.com/in/ganen-putro/" target="_blank" rel="noopener noreferrer"><span><small>LinkedIn</small><strong>Connect with me</strong></span><b>↗</b></a>
+<a class="contact-link" href="https://wa.me/6285891130811" target="_blank" rel="noopener noreferrer"><span><small>WhatsApp</small><strong>Send me a message</strong></span><b>↗</b></a>
+<a class="contact-link" href="mailto:ganen@mail.com"><span><small>Email</small><strong>ganen@mail.com</strong></span><b>↗</b></a>
+</div></section>
 </main>
 <footer class="wrap"><span>© 2026 Ganen</span><span>Senior Product Designer · Jakarta</span></footer>
 </body>
