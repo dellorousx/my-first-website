@@ -10,9 +10,8 @@
  --bg:#f7f7f5;--surface:#fff;--ink:#151515;--muted:#737373;--line:#deded9;
  --accent:#2457ff;--accent2:#e9eeff;--max:1180px;--radius:24px;
 }
-*{box-sizing:border-box} html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
-a{color:inherit;text-decoration:none}.wrap{max-width:var(--max);margin:auto;padding:0 28px}
+*{box-sizing:border-box} html{scroll-behavior:smooth;overflow-x:hidden} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55;overflow-x:hidden}
+a{color:inherit;text-decoration:none}.wrap{width:100%;max-width:var(--max);margin-left:auto;margin-right:auto;padding-left:28px;padding-right:28px}
 nav{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(247,247,245,.88);backdrop-filter:blur(16px);z-index:20}
 .logo{font-weight:800;letter-spacing:-.04em}.navlinks{display:flex;gap:26px;font-size:14px;color:#555}.navlinks a:hover{color:#000}
 .hero{padding:110px 0 90px;display:grid;grid-template-columns:1.4fr .6fr;gap:70px;align-items:end}
@@ -43,17 +42,59 @@ h1{font-size:clamp(54px,8vw,100px);line-height:.94;letter-spacing:-.075em;margin
 .cta{padding:110px 0;text-align:center}.cta h2{font-size:clamp(48px,7vw,82px);letter-spacing:-.07em;line-height:.95;margin:0 auto 25px;max-width:850px}.cta p{color:var(--muted);font-size:18px}.contact-links{max-width:720px;margin:38px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:left}.contact-link{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:18px;transition:.2s transform,.2s box-shadow}.contact-link:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.07)}.contact-link small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:5px}.contact-link strong{font-size:14px}.contact-link b{font-size:18px}@media(max-width:800px){.contact-links{grid-template-columns:1fr}}
 .button{display:inline-flex;margin-top:15px;padding:14px 22px;background:#111;color:#fff;border-radius:999px;font-weight:700;font-size:14px}
 footer{border-top:1px solid var(--line);padding:25px 0;color:#777;font-size:12px;display:flex;justify-content:space-between}
-@media(max-width:800px){.hero,.case-top,.about{grid-template-columns:1fr}.hero{padding-top:70px}.hero-side{border-left:0;border-top:1px solid var(--line);padding:22px 0 0}.grid,.case-grid{grid-template-columns:1fr}.section{padding:60px 0}.visual{height:270px}.case-hero{height:390px}.phone{width:150px;height:300px;padding:14px;border-radius:22px}.phone-row{gap:8px}.navlinks{display:none}.stats{grid-template-columns:1fr}.stats .stat{padding:18px}}
-</style>
-</head>
-<body>
-<nav><div class="wrap" style="width:100%;display:flex;justify-content:space-between;align-items:center"><a class="logo" href="#">GANEN.</a><div class="navlinks"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></div></div></nav>
+@media (max-width: 800px){
+  .wrap{padding-left:max(20px, env(safe-area-inset-left));padding-right:max(20px, env(safe-area-inset-right));}
+  nav{min-height:64px;height:auto;padding-top:env(safe-area-inset-top);}
+  .hero,.case-top,.about{grid-template-columns:1fr;}
+  .hero{padding-top:64px;padding-bottom:64px;gap:42px;}
+  .hero h1{font-size:clamp(48px,15vw,72px);overflow-wrap:anywhere;}
+  .hero p{font-size:18px;max-width:100%;}
+  .hero-side{border-left:0;border-top:1px solid var(--line);padding:22px 0 0;}
+  .grid,.case-grid{grid-template-columns:1fr;}
+  .section{padding:56px 0;}
+  .section-head{display:block;margin-bottom:30px;}
+  .section-head h2{font-size:36px;}
+  .section-head p{max-width:100%;}
+  .visual{height:270px;padding:20px;}
+  .card-body{padding:22px;}
+  .case{padding:64px 0;}
+  .case-top{gap:38px;margin-bottom:36px;}
+  .case h2{font-size:clamp(42px,12vw,62px);overflow-wrap:anywhere;}
+  .case-intro{font-size:17px;}
+  .meta{grid-template-columns:1fr 1fr;gap:18px;}
+  .case-hero{height:390px;border-radius:22px;}
+  .phone-row{gap:8px;transform:rotate(-5deg) translateY(20px) scale(.86);}
+  .phone{width:150px;height:300px;padding:14px;border-radius:22px;flex:none;}
+  .case-grid{gap:44px;margin-top:52px;}
+  .insight{padding:28px;margin-top:52px;border-radius:20px;}
+  .insight h3{font-size:30px;}
+  .cta{padding:72px 0;}
+  .cta h2{font-size:clamp(44px,13vw,66px);overflow-wrap:anywhere;}
+  .contact-links{grid-template-columns:1fr;max-width:100%;margin-top:30px;}
+  .contact-link{padding:18px;min-width:0;}
+  .contact-link strong{font-size:14px;overflow-wrap:anywhere;}
+  footer{padding-bottom:max(25px, env(safe-area-inset-bottom));}
+  .navlinks{display:none;}
+  .stats{grid-template-columns:1fr;}
+  .stats .stat{padding:18px;}
+}
+@media (max-width: 380px){
+  .wrap{padding-left:max(16px, env(safe-area-inset-left));padding-right:max(16px, env(safe-area-inset-right));}
+  .hero{padding-top:52px;}
+  .hero h1{font-size:46px;}
+  .case-hero{height:350px;}
+  .phone-row{transform:rotate(-5deg) translateY(20px) scale(.68);}
+  .meta{grid-template-columns:1fr;}
+}
+@supports (padding: max(0px)){
+  .wrap{padding-left:max(20px, calc(env(safe-area-inset-left) + 20px));padding-right:max(20px, calc(env(safe-area-inset-right) + 20px));}
+}
 
 <main>
 <section class="hero wrap">
 <div><div class="eyebrow">Senior Product Designer · Banking & Fintech</div>
 <h1>Designing products people can trust.</h1>
-<p>I’m Ganen, a Product Designer with 8+ years of experience turning complex financial products into clear, useful and business-minded digital experiences.</p></div>
+<p>I’m Ganen, a Product Designer with 7+ years of experience turning complex financial products into clear, useful and business-minded digital experiences.</p></div>
 <div class="hero-side"><div><strong>Based in</strong>Jakarta, Indonesia</div><div><strong>Focus</strong>Product strategy · UX · UI · Design systems</div><div><strong>Currently</strong>MotionBank · MNC Bank</div></div>
 </section>
 
@@ -97,6 +138,6 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:#777;font-size:12px
 <a class="contact-link" href="mailto:ganen@mail.com"><span><small>Email</small><strong>ganen@mail.com</strong></span><b>↗</b></a>
 </div></section>
 </main>
-<footer class="wrap"><span>© 2026 Ganen Putro</span><span>Jakarta, Indonesia</span></footer>
+<footer class="wrap"><span>© 2026 Ganen</span><span>Senior Product Designer · Jakarta</span></footer>
 </body>
 </html>
