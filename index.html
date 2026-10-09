@@ -295,6 +295,7 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
   var unlockTimer = null;
   var animationFrameId = null;
   var activeId = null;
+  var restoreMobileScrollBehavior = null;
 
   function getHeaderHeight() {
     var header = document.getElementById('portfolio-header');
@@ -331,17 +332,32 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
       cancelAnimationFrame(animationFrameId);
       animationFrameId = null;
     }
+    if (restoreMobileScrollBehavior) {
+      restoreMobileScrollBehavior();
+      restoreMobileScrollBehavior = null;
+    }
 
     var start = window.pageYOffset;
     var distance = destination - start;
     var duration = Math.min(620, Math.max(360, 300 + Math.abs(distance) * 0.075));
     var startedAt = null;
+    var root = document.documentElement;
+    var previousScrollBehavior = root.style.scrollBehavior;
+
+    // Critical fix: prevent CSS `scroll-behavior: smooth` from animating every
+    // per-frame scrollTo call and fighting this custom mobile animation.
+    root.style.scrollBehavior = 'auto';
+
+    function restoreScrollBehavior() {
+      root.style.scrollBehavior = previousScrollBehavior;
+      restoreMobileScrollBehavior = null;
+    }
+    restoreMobileScrollBehavior = restoreScrollBehavior;
 
     function frame(timestamp) {
       if (startedAt === null) startedAt = timestamp;
       var progress = Math.min(1, (timestamp - startedAt) / duration);
-      // Start moving immediately with a gentle ease-out, avoiding the slow ramp-up
-      // that can make the navigation feel like it is dragging before it scrolls.
+      // Immediate ease-out motion with no nested browser smooth-scroll animation.
       var eased = 1 - Math.pow(1 - progress, 2.2);
       window.scrollTo(0, start + distance * eased);
 
@@ -350,6 +366,7 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
       } else {
         animationFrameId = null;
         window.scrollTo(0, destination);
+        restoreScrollBehavior();
         finishProgrammaticScroll(id);
       }
     }
