@@ -215,8 +215,9 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
 
 <style id="navigation-active-state-style">
   #portfolio-header .portfolio-menu a {
-    transition: color 120ms ease !important;
-    -webkit-tap-highlight-color: transparent;
+    transition: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
   }
   #portfolio-header .portfolio-menu a.is-active {
     color: #111 !important;
@@ -333,7 +334,7 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
 
     var start = window.pageYOffset;
     var distance = destination - start;
-    var duration = Math.min(950, Math.max(600, 450 + Math.abs(distance) * 0.18));
+    var duration = Math.min(700, Math.max(420, 360 + Math.abs(distance) * 0.10));
     var startedAt = null;
 
     function frame(timestamp) {
