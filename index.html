@@ -334,16 +334,15 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
 
     var start = window.pageYOffset;
     var distance = destination - start;
-    var duration = Math.min(700, Math.max(420, 360 + Math.abs(distance) * 0.10));
+    var duration = Math.min(620, Math.max(360, 300 + Math.abs(distance) * 0.075));
     var startedAt = null;
 
     function frame(timestamp) {
       if (startedAt === null) startedAt = timestamp;
       var progress = Math.min(1, (timestamp - startedAt) / duration);
-      // Smooth ease-in-out, with a consistent duration across mobile browsers.
-      var eased = progress < 0.5
-        ? 4 * progress * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      // Start moving immediately with a gentle ease-out, avoiding the slow ramp-up
+      // that can make the navigation feel like it is dragging before it scrolls.
+      var eased = 1 - Math.pow(1 - progress, 2.2);
       window.scrollTo(0, start + distance * eased);
 
       if (progress < 1) {
