@@ -199,15 +199,17 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
 <style id="section-navigation-alignment">
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 96px;
+    scroll-padding-top: 0;
   }
   #work, #about, #contact {
-    scroll-margin-top: 96px !important;
+    scroll-margin-top: 0 !important;
   }
-  @media screen and (max-width: 600px) {
-    html { scroll-padding-top: 82px; }
-    #work, #about, #contact { scroll-margin-top: 82px !important; }
-  }
+</style>
+
+
+<style id="section-navigation-alignment-final">
+  html { scroll-padding-top: 0 !important; }
+  #work, #about, #contact { scroll-margin-top: 0 !important; }
 </style>
 
 </head>
@@ -278,14 +280,20 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
     var target;
     try { target = document.querySelector(hash); } catch (e) { return; }
     if (!target) return;
+
     var header = document.getElementById('portfolio-header');
-    var headerHeight = header ? header.getBoundingClientRect().height : 0;
-    var offset = headerHeight + 18;
-    var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+    var headerRect = header ? header.getBoundingClientRect() : null;
+    var headerBottom = headerRect ? headerRect.bottom : 0;
+    var targetTop = target.getBoundingClientRect().top + window.pageYOffset;
+
+    // Align the section's top edge with the bottom edge of the fixed header,
+    // leaving only a small 4px visual gap.
+    var top = targetTop - headerBottom - 4;
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }
+
   document.addEventListener('click', function (event) {
-    var link = event.target.closest('a[href^="#"]');
+    var link = event.target.closest('#portfolio-header a[href^="#"]');
     if (!link) return;
     var hash = link.getAttribute('href');
     if (!hash || hash === '#') return;
@@ -296,11 +304,17 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
     if (window.location.hash !== hash) history.pushState(null, '', hash);
     scrollToSection(hash);
   });
+
   window.addEventListener('hashchange', function () {
     scrollToSection(window.location.hash);
   });
   window.addEventListener('load', function () {
-    if (window.location.hash) setTimeout(function () { scrollToSection(window.location.hash); }, 50);
+    if (window.location.hash) setTimeout(function () {
+      scrollToSection(window.location.hash);
+    }, 80);
+  });
+  window.addEventListener('resize', function () {
+    if (window.location.hash) scrollToSection(window.location.hash);
   });
 })();
 </script>
