@@ -195,6 +195,21 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
   }
 </style>
 
+
+<style id="section-navigation-alignment">
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+  #work, #about, #contact {
+    scroll-margin-top: 96px !important;
+  }
+  @media screen and (max-width: 600px) {
+    html { scroll-padding-top: 82px; }
+    #work, #about, #contact { scroll-margin-top: 82px !important; }
+  }
+</style>
+
 </head>
 <body>
 
@@ -255,5 +270,40 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
 </div></section>
 </main>
 <footer class="wrap"><span>© 2026 Ganen</span><span>Senior Product Designer · Jakarta</span></footer>
+
+<script id="section-navigation-alignment-script">
+(function () {
+  function scrollToSection(hash) {
+    if (!hash || hash.charAt(0) !== '#') return;
+    var target;
+    try { target = document.querySelector(hash); } catch (e) { return; }
+    if (!target) return;
+    var header = document.getElementById('portfolio-header');
+    var headerHeight = header ? header.getBoundingClientRect().height : 0;
+    var offset = headerHeight + 18;
+    var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    var hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+    var target;
+    try { target = document.querySelector(hash); } catch (e) { return; }
+    if (!target) return;
+    event.preventDefault();
+    if (window.location.hash !== hash) history.pushState(null, '', hash);
+    scrollToSection(hash);
+  });
+  window.addEventListener('hashchange', function () {
+    scrollToSection(window.location.hash);
+  });
+  window.addEventListener('load', function () {
+    if (window.location.hash) setTimeout(function () { scrollToSection(window.location.hash); }, 50);
+  });
+})();
+</script>
+
 </body>
 </html>
