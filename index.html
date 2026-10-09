@@ -359,6 +359,8 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
       if (!target) return;
 
       event.preventDefault();
+      // Give immediate visual feedback on tap, without waiting for the scroll animation.
+      setActiveSection(target.id);
       if (window.location.hash !== hash) history.pushState(null, '', hash);
       scrollToSection(hash);
     });
