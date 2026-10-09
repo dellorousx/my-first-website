@@ -212,6 +212,14 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
   #work, #about, #contact { scroll-margin-top: 0 !important; }
 </style>
 
+
+<style id="navigation-active-state-style">
+  #portfolio-header .portfolio-menu a.is-active {
+    color: #111 !important;
+    font-weight: 600 !important;
+  }
+</style>
+
 </head>
 <body>
 
@@ -275,47 +283,104 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
 
 <script id="section-navigation-alignment-script">
 (function () {
+  var menuLinks = [];
+  var sections = [];
+  var ticking = false;
+
+  function getHeaderHeight() {
+    var header = document.getElementById('portfolio-header');
+    return header ? header.getBoundingClientRect().height : 0;
+  }
+
+  function setActiveSection(id) {
+    menuLinks.forEach(function (link) {
+      var isActive = link.getAttribute('href') === '#' + id;
+      if (isActive) {
+        link.setAttribute('aria-current', 'location');
+        link.classList.add('is-active');
+      } else {
+        link.removeAttribute('aria-current');
+        link.classList.remove('is-active');
+      }
+    });
+  }
+
   function scrollToSection(hash) {
     if (!hash || hash.charAt(0) !== '#') return;
     var target;
     try { target = document.querySelector(hash); } catch (e) { return; }
     if (!target) return;
 
-    var header = document.getElementById('portfolio-header');
-    var headerRect = header ? header.getBoundingClientRect() : null;
-    var headerBottom = headerRect ? headerRect.bottom : 0;
     var targetTop = target.getBoundingClientRect().top + window.pageYOffset;
-
-    // Align the section's top edge with the bottom edge of the fixed header,
-    // leaving only a small 4px visual gap.
-    var top = targetTop - headerBottom - 4;
+    var top = targetTop - getHeaderHeight() - 1;
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    setActiveSection(target.id);
   }
 
-  document.addEventListener('click', function (event) {
-    var link = event.target.closest('#portfolio-header a[href^="#"]');
-    if (!link) return;
-    var hash = link.getAttribute('href');
-    if (!hash || hash === '#') return;
-    var target;
-    try { target = document.querySelector(hash); } catch (e) { return; }
-    if (!target) return;
-    event.preventDefault();
-    if (window.location.hash !== hash) history.pushState(null, '', hash);
-    scrollToSection(hash);
-  });
+  function updateActiveOnScroll() {
+    ticking = false;
+    if (!sections.length) return;
 
-  window.addEventListener('hashchange', function () {
-    scrollToSection(window.location.hash);
-  });
-  window.addEventListener('load', function () {
-    if (window.location.hash) setTimeout(function () {
+    var threshold = getHeaderHeight() + 2;
+    var current = sections[0];
+    sections.forEach(function (section) {
+      if (section.getBoundingClientRect().top <= threshold) current = section;
+    });
+
+    // At the very bottom, ensure Contact becomes active.
+    if (window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight - 3) {
+      var contact = document.getElementById('contact');
+      if (contact) current = contact;
+    }
+    if (current) setActiveSection(current.id);
+  }
+
+  function requestActiveUpdate() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateActiveOnScroll);
+  }
+
+  function init() {
+    menuLinks = Array.prototype.slice.call(
+      document.querySelectorAll('#portfolio-header .portfolio-menu a[href^="#"]')
+    );
+    sections = menuLinks.map(function (link) {
+      try { return document.querySelector(link.getAttribute('href')); }
+      catch (e) { return null; }
+    }).filter(Boolean);
+
+    document.addEventListener('click', function (event) {
+      var link = event.target.closest('#portfolio-header .portfolio-menu a[href^="#"]');
+      if (!link) return;
+      var hash = link.getAttribute('href');
+      var target;
+      try { target = document.querySelector(hash); } catch (e) { return; }
+      if (!target) return;
+
+      event.preventDefault();
+      if (window.location.hash !== hash) history.pushState(null, '', hash);
+      scrollToSection(hash);
+    });
+
+    window.addEventListener('scroll', requestActiveUpdate, { passive: true });
+    window.addEventListener('resize', requestActiveUpdate);
+    window.addEventListener('hashchange', function () {
       scrollToSection(window.location.hash);
-    }, 80);
-  });
-  window.addEventListener('resize', function () {
-    if (window.location.hash) scrollToSection(window.location.hash);
-  });
+    });
+
+    if (window.location.hash) {
+      setTimeout(function () { scrollToSection(window.location.hash); }, 80);
+    } else {
+      requestActiveUpdate();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 </script>
 
