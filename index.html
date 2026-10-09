@@ -123,16 +123,88 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
 #portfolio-header .portfolio-menu a{font-size:11px!important}
 }
 </style>
+
+<style id="mobile-navigation-final-override">
+  #portfolio-header,
+  #portfolio-header * {
+    box-sizing: border-box !important;
+  }
+  #portfolio-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+  }
+  #portfolio-header .portfolio-brand {
+    display: block !important;
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #portfolio-header .portfolio-menu {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: max-content !important;
+    height: auto !important;
+    gap: clamp(9px, 2.8vw, 16px) !important;
+    margin: 0 0 0 auto !important;
+    padding: 0 !important;
+    border: 0 !important;
+    position: static !important;
+    background: transparent !important;
+    overflow: visible !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  #portfolio-header .portfolio-menu a {
+    display: inline-block !important;
+    flex: 0 0 auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #555 !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    white-space: nowrap !important;
+    text-indent: 0 !important;
+    transform: none !important;
+  }
+  @media screen and (max-width: 430px) {
+    #portfolio-header {
+      padding-left: max(12px, env(safe-area-inset-left)) !important;
+      padding-right: max(12px, env(safe-area-inset-right)) !important;
+      gap: 8px !important;
+    }
+    #portfolio-header .portfolio-brand { font-size: 13px !important; }
+    #portfolio-header .portfolio-menu { gap: 10px !important; }
+    #portfolio-header .portfolio-menu a { font-size: 12px !important; }
+  }
+  @media screen and (max-width: 350px) {
+    #portfolio-header { padding-left: 8px !important; padding-right: 8px !important; gap: 6px !important; }
+    #portfolio-header .portfolio-brand { font-size: 12px !important; }
+    #portfolio-header .portfolio-menu { gap: 7px !important; }
+    #portfolio-header .portfolio-menu a { font-size: 11px !important; }
+  }
+</style>
+
 </head>
 <body>
 
 <header id="portfolio-header" aria-label="Portfolio header">
   <a class="portfolio-brand" href="#top" aria-label="Ganen home">GANEN.</a>
-  <nav class="portfolio-menu" aria-label="Main navigation">
+  <div class="portfolio-menu" role="navigation" aria-label="Main navigation">
     <a href="#work">Work</a>
     <a href="#about">About</a>
     <a href="#contact">Contact</a>
-  </nav>
+  </div>
 </header>
 <main id="top">
 <section class="hero wrap">
