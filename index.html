@@ -312,7 +312,7 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
     if (!target) return;
 
     var targetTop = target.getBoundingClientRect().top + window.pageYOffset;
-    var top = targetTop - getHeaderHeight() - 1;
+    var top = targetTop - getHeaderHeight() + 2;
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     setActiveSection(target.id);
   }
