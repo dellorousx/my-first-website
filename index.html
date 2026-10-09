@@ -214,9 +214,13 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
 
 
 <style id="navigation-active-state-style">
+  #portfolio-header .portfolio-menu a {
+    transition: color 120ms ease !important;
+    -webkit-tap-highlight-color: transparent;
+  }
   #portfolio-header .portfolio-menu a.is-active {
     color: #111 !important;
-    font-weight: 600 !important;
+    font-weight: 400 !important;
   }
 </style>
 
@@ -286,6 +290,10 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
   var menuLinks = [];
   var sections = [];
   var ticking = false;
+  var programmaticScroll = false;
+  var unlockTimer = null;
+  var animationFrameId = null;
+  var activeId = null;
 
   function getHeaderHeight() {
     var header = document.getElementById('portfolio-header');
@@ -293,6 +301,8 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
   }
 
   function setActiveSection(id) {
+    if (!id || activeId === id) return;
+    activeId = id;
     menuLinks.forEach(function (link) {
       var isActive = link.getAttribute('href') === '#' + id;
       if (isActive) {
@@ -305,6 +315,47 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
     });
   }
 
+  function finishProgrammaticScroll(id) {
+    if (unlockTimer) {
+      clearTimeout(unlockTimer);
+      unlockTimer = null;
+    }
+    programmaticScroll = false;
+    if (id) setActiveSection(id);
+    requestActiveUpdate();
+  }
+
+  function animateMobileScroll(destination, id) {
+    if (animationFrameId !== null) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+
+    var start = window.pageYOffset;
+    var distance = destination - start;
+    var duration = Math.min(950, Math.max(600, 450 + Math.abs(distance) * 0.18));
+    var startedAt = null;
+
+    function frame(timestamp) {
+      if (startedAt === null) startedAt = timestamp;
+      var progress = Math.min(1, (timestamp - startedAt) / duration);
+      // Smooth ease-in-out, with a consistent duration across mobile browsers.
+      var eased = progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      window.scrollTo(0, start + distance * eased);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(frame);
+      } else {
+        animationFrameId = null;
+        window.scrollTo(0, destination);
+        finishProgrammaticScroll(id);
+      }
+    }
+    animationFrameId = requestAnimationFrame(frame);
+  }
+
   function scrollToSection(hash) {
     if (!hash || hash.charAt(0) !== '#') return;
     var target;
@@ -312,14 +363,27 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
     if (!target) return;
 
     var targetTop = target.getBoundingClientRect().top + window.pageYOffset;
-    var top = targetTop - getHeaderHeight() + 2;
-    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    var destination = Math.max(0, targetTop - getHeaderHeight() + 2);
+
+    // Keep the clicked item active throughout the scroll animation to prevent flicker.
+    programmaticScroll = true;
     setActiveSection(target.id);
+    if (unlockTimer) clearTimeout(unlockTimer);
+
+    if (window.matchMedia && window.matchMedia('(max-width: 800px)').matches) {
+      animateMobileScroll(destination, target.id);
+    } else {
+      window.scrollTo({ top: destination, behavior: 'smooth' });
+      // Modern browsers fire scrollend; the timeout is a fallback.
+      unlockTimer = setTimeout(function () {
+        finishProgrammaticScroll(target.id);
+      }, Math.min(1800, Math.max(800, 500 + Math.abs(destination - window.pageYOffset) * 0.3)));
+    }
   }
 
   function updateActiveOnScroll() {
     ticking = false;
-    if (!sections.length) return;
+    if (!sections.length || programmaticScroll) return;
 
     var threshold = getHeaderHeight() + 2;
     var current = sections[0];
@@ -327,7 +391,6 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
       if (section.getBoundingClientRect().top <= threshold) current = section;
     });
 
-    // At the very bottom, ensure Contact becomes active.
     if (window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight - 3) {
       var contact = document.getElementById('contact');
       if (contact) current = contact;
@@ -336,7 +399,7 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
   }
 
   function requestActiveUpdate() {
-    if (ticking) return;
+    if (ticking || programmaticScroll) return;
     ticking = true;
     window.requestAnimationFrame(updateActiveOnScroll);
   }
@@ -359,7 +422,6 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
       if (!target) return;
 
       event.preventDefault();
-      // Give immediate visual feedback on tap, without waiting for the scroll animation.
       setActiveSection(target.id);
       if (window.location.hash !== hash) history.pushState(null, '', hash);
       scrollToSection(hash);
@@ -367,6 +429,12 @@ main{padding-top:calc(64px + env(safe-area-inset-top))}
 
     window.addEventListener('scroll', requestActiveUpdate, { passive: true });
     window.addEventListener('resize', requestActiveUpdate);
+    window.addEventListener('scrollend', function () {
+      if (programmaticScroll && !(window.matchMedia && window.matchMedia('(max-width: 800px)').matches)) {
+        finishProgrammaticScroll(activeId);
+      }
+    });
+
     window.addEventListener('hashchange', function () {
       scrollToSection(window.location.hash);
     });
