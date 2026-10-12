@@ -1004,6 +1004,19 @@ body {
 }
 </style>
 
+
+<style id="hero-cta-illustration-spacing-fix">
+/* Keep the hero CTAs visually separate from the illustration on narrow layouts. */
+@media (max-width: 800px) {
+  .hero-welcome { row-gap: 34px !important; }
+  .hero-art { margin-top: 8px !important; }
+}
+@media (max-width: 430px) {
+  .hero-welcome { row-gap: 30px !important; }
+  .hero-art { margin-top: 8px !important; }
+}
+</style>
+
 </head>
 <body>
 
