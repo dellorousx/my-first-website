@@ -1326,8 +1326,17 @@ body {
     try { target = document.querySelector(hash); } catch (e) { return; }
     if (!target) return;
 
-    var targetTop = target.getBoundingClientRect().top + window.pageYOffset;
-    var destination = Math.max(0, targetTop - getHeaderHeight() + 2);
+    // For Work and About, align the visible section content—not the outer
+    // section box with its large decorative top padding—to the fixed header.
+    // Contact keeps its existing section-level alignment.
+    var alignmentTarget = target;
+    if (target.id === 'work') {
+      alignmentTarget = target.querySelector('.work-heading') || target;
+    } else if (target.id === 'about') {
+      alignmentTarget = target.querySelector('.about') || target;
+    }
+    var targetTop = alignmentTarget.getBoundingClientRect().top + window.pageYOffset;
+    var destination = Math.max(0, targetTop - getHeaderHeight());
 
     // Keep the clicked item active throughout the scroll animation to prevent flicker.
     programmaticScroll = true;
