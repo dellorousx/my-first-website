@@ -1346,9 +1346,10 @@ body {
     ticking = false;
     if (!sections.length || programmaticScroll) return;
 
-    // Keep all menu items neutral while the page is at its initial landing position.
-    // A real section becomes active only after the user scrolls or follows a menu link.
-    if (window.pageYOffset <= 24 && !window.location.hash) {
+    // Keep all menu items neutral at the landing top, including when the brand
+    // link has set the URL hash to #top. That hash is not a Work/About/Contact section.
+    // A real section becomes active only after the user scrolls or selects its menu link.
+    if (window.pageYOffset <= 24 && (!window.location.hash || window.location.hash === '#top')) {
       setActiveSection(null);
       return;
     }
