@@ -1433,6 +1433,35 @@ body {
       catch (e) { return null; }
     }).filter(Boolean);
 
+    // Case-study CTA links use the same precise 24px gap below the fixed header.
+    // Align the case-study content itself rather than combining the browser's
+    // global scroll-padding with the section's scroll-margin.
+    document.addEventListener('click', function (event) {
+      var caseLink = event.target.closest('a.project-row[href^="#case-"]');
+      if (!caseLink) return;
+      var caseHash = caseLink.getAttribute('href');
+      var caseTarget;
+      try { caseTarget = document.querySelector(caseHash); } catch (e) { return; }
+      if (!caseTarget) return;
+
+      event.preventDefault();
+      if (window.location.hash !== caseHash) history.pushState(null, '', caseHash);
+      var alignmentTarget = caseTarget.querySelector('.case-top') || caseTarget;
+      var targetTop = alignmentTarget.getBoundingClientRect().top + window.pageYOffset;
+      var destination = Math.max(0, targetTop - getHeaderHeight() - 24);
+
+      programmaticScroll = true;
+      if (unlockTimer) clearTimeout(unlockTimer);
+      if (window.matchMedia && window.matchMedia('(max-width: 800px)').matches) {
+        animateMobileScroll(destination, null);
+      } else {
+        window.scrollTo({ top: destination, behavior: 'smooth' });
+        unlockTimer = setTimeout(function () {
+          finishProgrammaticScroll(null);
+        }, Math.min(1800, Math.max(800, 500 + Math.abs(destination - window.pageYOffset) * 0.3)));
+      }
+    });
+
     document.addEventListener('click', function (event) {
       var link = event.target.closest('#portfolio-header .portfolio-menu a[href^="#"]');
       if (!link) return;
