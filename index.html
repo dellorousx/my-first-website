@@ -1360,17 +1360,29 @@ body {
     var current = null;
 
     if (isMobile) {
-      // Menu order may differ from page order. Select by actual on-screen
-      // geometry so the underline follows the section crossing the reading line.
-      var candidates = sections.map(function (section) {
-        return { section: section, top: section.getBoundingClientRect().top };
-      }).sort(function (a, b) { return a.top - b.top; });
-      candidates.forEach(function (item) {
-        if (item.top <= threshold) current = item.section;
+      // On touch scroll, choose the section occupying the largest share of the
+      // visible content area. A top-crossing-only test can leave the previous
+      // item active when the next section is visible but its top has not yet
+      // crossed the reading line.
+      var contentTop = Math.min(window.innerHeight, getHeaderHeight());
+      var contentBottom = window.innerHeight;
+      var bestVisibleHeight = -1;
+      var bestDistance = Infinity;
+
+      sections.forEach(function (section) {
+        var rect = section.getBoundingClientRect();
+        var visibleTop = Math.max(rect.top, contentTop);
+        var visibleBottom = Math.min(rect.bottom, contentBottom);
+        var visibleHeight = Math.max(0, visibleBottom - visibleTop);
+        var distance = Math.abs(((rect.top + rect.bottom) / 2) - ((contentTop + contentBottom) / 2));
+
+        if (visibleHeight > bestVisibleHeight ||
+            (visibleHeight === bestVisibleHeight && distance < bestDistance)) {
+          bestVisibleHeight = visibleHeight;
+          bestDistance = distance;
+          current = section;
+        }
       });
-      // Before the first section reaches the reading line, choose the nearest
-      // section rather than leaving a stale menu item active.
-      if (!current && candidates.length) current = candidates[0].section;
     } else {
       current = sections[0];
       sections.forEach(function (section) {
