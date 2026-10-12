@@ -1329,7 +1329,11 @@ body {
     // Align the visible section content—not the outer section box with its
     // decorative top padding—to the same 24px breathing gap below the header.
     var alignmentTarget = target;
-    if (target.id === 'work') {
+    if (target.id === 'top') {
+      // When the brand link points to #top, align the visible welcome heading
+      // with the same 24px breathing gap used by the other section links.
+      alignmentTarget = target.querySelector('.hero-welcome h1') || target.querySelector('h1') || target;
+    } else if (target.id === 'work') {
       alignmentTarget = target.querySelector('.work-heading') || target;
     } else if (target.id === 'about') {
       alignmentTarget = target.querySelector('.about') || target;
@@ -1339,9 +1343,8 @@ body {
       alignmentTarget = target.querySelector('.eyebrow') || target.querySelector('h2') || target;
     }
     var targetTop = alignmentTarget.getBoundingClientRect().top + window.pageYOffset;
-    // Leave the same modest 24px breathing gap below the fixed header
-    // for Work, About, and Contact.
-    var headerGap = (target.id === 'work' || target.id === 'about' || target.id === 'contact') ? 24 : 0;
+    // Keep the same 24px breathing gap for the welcome heading and section links.
+    var headerGap = (target.id === 'top' || target.id === 'work' || target.id === 'about' || target.id === 'contact') ? 24 : 0;
     var destination = Math.max(0, targetTop - getHeaderHeight() - headerGap);
 
     // Keep the clicked item active throughout the scroll animation to prevent flicker.
