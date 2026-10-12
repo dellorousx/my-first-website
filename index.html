@@ -1336,9 +1336,9 @@ body {
       alignmentTarget = target.querySelector('.about') || target;
     }
     var targetTop = alignmentTarget.getBoundingClientRect().top + window.pageYOffset;
-    // Leave a modest breathing gap below the fixed header for Work and About.
-    // Contact keeps its previous alignment unchanged.
-    var headerGap = (target.id === 'work' || target.id === 'about') ? 24 : 0;
+    // Leave the same modest 24px breathing gap below the fixed header
+    // for Work, About, and Contact.
+    var headerGap = (target.id === 'work' || target.id === 'about' || target.id === 'contact') ? 24 : 0;
     var destination = Math.max(0, targetTop - getHeaderHeight() - headerGap);
 
     // Keep the clicked item active throughout the scroll animation to prevent flicker.
