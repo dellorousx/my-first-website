@@ -1326,14 +1326,17 @@ body {
     try { target = document.querySelector(hash); } catch (e) { return; }
     if (!target) return;
 
-    // For Work and About, align the visible section content—not the outer
-    // section box with its large decorative top padding—to the fixed header.
-    // Contact keeps its existing section-level alignment.
+    // Align the visible section content—not the outer section box with its
+    // decorative top padding—to the same 24px breathing gap below the header.
     var alignmentTarget = target;
     if (target.id === 'work') {
       alignmentTarget = target.querySelector('.work-heading') || target;
     } else if (target.id === 'about') {
       alignmentTarget = target.querySelector('.about') || target;
+    } else if (target.id === 'contact') {
+      // Contact has generous section padding, so align its visible eyebrow
+      // rather than the section container to avoid a much larger header gap.
+      alignmentTarget = target.querySelector('.eyebrow') || target.querySelector('h2') || target;
     }
     var targetTop = alignmentTarget.getBoundingClientRect().top + window.pageYOffset;
     // Leave the same modest 24px breathing gap below the fixed header
