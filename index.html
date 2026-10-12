@@ -1245,10 +1245,11 @@ body {
   }
 
   function setActiveSection(id) {
-    if (!id || activeId === id) return;
-    activeId = id;
+    // A null section deliberately clears the navigation state (e.g. at the landing top).
+    if (activeId === id) return;
+    activeId = id || null;
     menuLinks.forEach(function (link) {
-      var isActive = link.getAttribute('href') === '#' + id;
+      var isActive = !!activeId && link.getAttribute('href') === '#' + activeId;
       if (isActive) {
         link.setAttribute('aria-current', 'location');
         link.classList.add('is-active');
@@ -1281,7 +1282,7 @@ body {
 
     var start = window.pageYOffset;
     var distance = destination - start;
-    var duration = Math.min(620, Math.max(360, 300 + Math.abs(distance) * 0.075));
+    var duration = Math.min(850, Math.max(520, 460 + Math.abs(distance) * 0.08));
     var startedAt = null;
     var root = document.documentElement;
     var previousScrollBehavior = root.style.scrollBehavior;
@@ -1343,6 +1344,13 @@ body {
   function updateActiveOnScroll() {
     ticking = false;
     if (!sections.length || programmaticScroll) return;
+
+    // Keep all menu items neutral while the page is at its initial landing position.
+    // A real section becomes active only after the user scrolls or follows a menu link.
+    if (window.pageYOffset <= 24 && !window.location.hash) {
+      setActiveSection(null);
+      return;
+    }
 
     var isMobile = window.matchMedia && window.matchMedia('(max-width: 800px)').matches;
     // On mobile, activate the section crossing a comfortable reading line below
