@@ -701,10 +701,11 @@ body {
 }
 .hero-welcome .hero-statement span { color: var(--welcome-purple-dark); }
 .hero-welcome .hero-detail {
-  max-width: 440px;
-  font-size: 14px;
+  max-width: none;
+  font-size: 13px;
   line-height: 1.7;
   color: #766d83;
+  white-space: nowrap;
 }
 .hero-actions { display:flex; flex-wrap:wrap; align-items:center; gap:11px; margin-top:28px; }
 .hero-action {
@@ -827,7 +828,7 @@ body {
   .hero-welcome::before { inset:0 -22px; }
   .hero-welcome h1 { font-size:clamp(64px,13.2vw,92px) !important; margin:24px 0 22px !important; }
   .hero-welcome .hero-statement { font-size:clamp(21px,5.2vw,28px); max-width:580px; }
-  .hero-welcome .hero-detail { max-width:470px; }
+  .hero-welcome .hero-detail { max-width:470px; white-space:normal; text-wrap:balance; }
   .hero-footnote { margin-top:28px; flex-wrap:wrap; }
   .hero-art { height:430px; min-height:430px; margin:0 -10px; }
   .art-board { width:280px; min-width:0; transform:scale(.9) rotate(-4deg); }
@@ -841,7 +842,7 @@ body {
   .hero-welcome .hero-eyebrow { font-size:8px; letter-spacing:.09em; padding:9px 11px; }
   .hero-welcome h1 { font-size:clamp(56px,14.5vw,72px) !important; line-height:.9 !important; }
   .hero-welcome .hero-statement { font-size:22px; }
-  .hero-welcome .hero-detail { font-size:12px; }
+  .hero-welcome .hero-detail { font-size:12px; white-space:normal; text-wrap:balance; }
   .hero-actions { margin-top:22px; gap:8px; }
   .hero-action { min-height:45px; padding:0 15px; gap:14px; }
   .hero-footnote { font-size:8px; margin-top:22px; gap:7px; }
