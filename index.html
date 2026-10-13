@@ -1344,9 +1344,13 @@ body {
       alignmentTarget = target.querySelector('.eyebrow') || target.querySelector('h2') || target;
     }
     var targetTop = alignmentTarget.getBoundingClientRect().top + window.pageYOffset;
-    // Keep the same 24px breathing gap for the welcome heading and section links.
-    var headerGap = (target.id === 'top' || target.id === 'work' || target.id === 'about' || target.id === 'contact') ? 24 : 0;
-    var destination = Math.max(0, targetTop - getHeaderHeight() - headerGap);
+    // The brand link returns to the actual page top. Scrolling the H1 itself
+    // under the fixed header shifts the entire hero upward and crops the art.
+    // Let the hero's existing responsive padding create the intended header gap.
+    var headerGap = (target.id === 'work' || target.id === 'about' || target.id === 'contact') ? 24 : 0;
+    var destination = target.id === 'top'
+      ? 0
+      : Math.max(0, targetTop - getHeaderHeight() - headerGap);
 
     // Keep the clicked item active throughout the scroll animation to prevent flicker.
     programmaticScroll = true;
